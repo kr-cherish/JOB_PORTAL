@@ -4,48 +4,57 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL") 
+  url      = env("DATABASE_URL")
 }
 
 model User {
-  id        String  @id @default(uuid()) 
-  fname     String
-  lname     String
-  email     String  @unique
-  password  String
-  role      Role    @default(USER)
-  resume    String?  
-  jobs      AppliedJob[] @relation("UserApplications") 
+  id         String  @id @default(uuid())
+  fname      String
+  lname      String
+  email      String  @unique
+  password   String
+  role       Role @default(USER)
+  resume     String?
+  skills     String?
+  experience String?
+  bio        String?
+
+  applications AppliedJob[] @relation(name: "UserApplications")
 }
 
 model Company {
-  id          String  @id @default(uuid()) 
+  id          String  @id @default(uuid())
   name        String
   description String
-  logo        String?  
-  jobs        Job[]   
+  logo        String?
+  jobs        Job[]
 }
 
+
 model Job {
-  id          String    @id @default(uuid()) 
+  id          String       @id @default(uuid())
   title       String
   description String
   companyId   String
-  company     Company   @relation(fields: [companyId], references: [id])
-  createdBy   String
-  applicants  AppliedJob[] @relation("JobApplications")  
+  company     Company      @relation(fields: [companyId], references: [id])
+  createdBy   String       // ID of the admin who posted the job
+  salary      String?      // Salary range (optional)
+  location    String?      // Job location (optional)
+  skills      String?      // Required skills for the job
+  experience  String?      // Required experience level
+  applicants  AppliedJob[] @relation("JobApplications")
 }
 
 model AppliedJob {
-  id        String  @id @default(uuid()) 
+  id        String   @id @default(uuid())
   userId    String
-  user      User  @relation(fields: [userId], references: [id], name: "UserApplications")  
+  user      User     @relation(fields: [userId], references: [id], name: "UserApplications")
   jobId     String
-  job       Job  @relation(fields: [jobId], references: [id], name: "JobApplications")  
-  resume    String?  
+  job       Job      @relation(fields: [jobId], references: [id], name: "JobApplications")
+  resume    String?
   appliedAt DateTime @default(now())
 
-  @@unique([userId, jobId])  
+  @@unique([userId, jobId])
 }
 
 enum Role {

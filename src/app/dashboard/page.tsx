@@ -1,21 +1,28 @@
 "use client";
+
+import  Sidebar  from "@/components/adminSideBar";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
 
-export default function DashboardPage() {
+const Dashboard = () => {
   const { data: session, status } = useSession();
-  const router = useRouter();
-
-  useEffect(() => {
-    if (status === "unauthenticated") {
-      router.push("/login");
-    }
-  }, [status, router]);
 
   if (status === "loading") {
     return <p>Loading...</p>;
   }
 
-  return <div>Welcome, {session?.user?.email}!</div>;
-}
+  if (!session) {
+    return <p>You need to log in first.</p>;
+  }
+
+  return (
+    <div>
+      {session.user.role === "ADMIN" ? (
+        <Sidebar/>
+      ) : (
+        <p>You are a Normal User</p>
+      )}
+    </div>
+  );
+};
+
+export default Dashboard;
