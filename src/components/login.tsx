@@ -33,7 +33,7 @@ const LoginPage = () => {
   };
 
   return (
-    <Card className="w-full border-none shadow-none">
+    <Card className="w-full border-none bg-[#F6F8D5] shadow-none">
       <CardHeader>
         <CardTitle className="text-center text-2xl font-semibold">
           Login to your account

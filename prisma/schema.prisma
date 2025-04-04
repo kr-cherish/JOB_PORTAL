@@ -23,13 +23,18 @@ model User {
 }
 
 model Company {
-  id          String  @id @default(uuid())
-  name        String
-  description String
-  logo        String?
-  jobs        Job[]
-}
+  id               String  @id @default(uuid())
+  name             String
+  description      String
+  logo            String?
+  website         String?  // Company website link
+  employeeSize    String?  // Number of employees
+  foundedYear     String?     // Year company was founded
+  specialities    String?  // Company's specialities (comma-separated values)
+  overview        String?  // Overview of the company
 
+  jobs            Job[]
+}
 
 model Job {
   id          String       @id @default(uuid())

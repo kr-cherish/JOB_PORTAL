@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
-import uploadImagetoPinata  from "@/app/register/action/uploadPinata"
+import uploadImagetoPinata  from "@/utils/uploadPinata"
 
 const RegisterPage = () => {
   const [error, setError] = useState("");
@@ -67,7 +67,7 @@ const RegisterPage = () => {
 
   return (
 
-    <Card className="w-full shadow-none border-none">
+    <Card className="w-full shadow-none bg-[#F6F8D5] border-none">
       <CardHeader>
         <CardTitle className="text-center">
           {role === "USER" ? "User Registration" : "Admin Registration"}

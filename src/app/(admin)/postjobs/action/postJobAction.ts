@@ -15,7 +15,7 @@ export async function postJob(formData: FormData) {
 
     if (!title || !description || !companyId || !createdBy) {
       return { error: "All required fields must be filled." };
-    }
+    } 
 
     await prisma.job.create({
       data: {

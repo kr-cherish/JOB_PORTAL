@@ -1,7 +1,6 @@
 "use server";
 import { hash } from "bcryptjs";
 import prisma from "@/utils/db";
-import { uploadToPinata } from "@/app/register/action/uploadPinata";
 export async function registerUser(formData: {
     fname: string;
     lname: string;

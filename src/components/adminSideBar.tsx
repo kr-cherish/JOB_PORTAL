@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Home, Briefcase, User, Menu, LogOut } from "lucide-react";
+import { Home, Briefcase, User, Menu, LogOut,Component } from "lucide-react";
 import Link from "next/link";
 
 const Sidebar = () => {
@@ -12,6 +12,7 @@ const Sidebar = () => {
   const [open, setOpen] = useState(false);
 
   const navItems = [
+    { name: "Compnay Info", href: "/adminCompany", icon: <Component  className="w-5 h-5" /> },
     { name: "Post Jobs", href: "/postjobs", icon: <Home className="w-5 h-5" /> },
     { name: "All Jobs", href: "/allJobs", icon: <Briefcase className="w-5 h-5" /> },
     { name: "Profile", href: "/profile", icon: <User className="w-5 h-5" /> },
@@ -51,13 +52,13 @@ const Sidebar = () => {
       </div>
 
       {/* Desktop Sidebar */}
-      <aside className="hidden md:flex flex-col w-64 h-screen p-4 border-r bg-gray-50">
-        <nav className="space-y-2">
+      <aside className="max-w-lg hidden h-full md:flex flex-col w-64 p-4 border-r bg-[#4F959D]">
+        <nav className="space-y-4">
           {navItems.map((item) => (
             <Link key={item.href} href={item.href}>
               <div
-                className={`flex items-center gap-3 p-2 rounded-lg ${
-                  pathname === item.href ? "bg-gray-200" : "hover:bg-gray-100"
+                className={`flex items-center gap-3 p-2 rounded-lg font-semibold ${
+                  pathname === item.href ? "bg-gray-200" : "hover:bg-white-100"
                 }`}
               >
                 {item.icon}

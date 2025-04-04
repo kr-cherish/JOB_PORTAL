@@ -13,25 +13,25 @@ const Navbar = () => {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="w-full bg-black text-white p-4 shadow-md">
+    <header className="w-full bg-[#205781] text-black p-6 shadow-md">
       <div className="container mx-auto flex justify-between items-center">
-        <Link href="/" className="text-xl font-bold">
+        <Link href="/" className="text-2xl font-bold">
           Job Portal
         </Link>
 
-        <nav className="hidden md:flex gap-6">
-          <Link href="/" className="hover:text-gray-400">
+        <nav className="sticky top-0 z-50 hidden md:flex gap-6 items-center ">
+          <Link href="/" className="hover:text-white-400 font-semibold">
             Home
           </Link>
-          <Link href="/dashboard" className="hover:text-gray-400">
+          <Link href="/dashboard" className="hover:text-white-400 font-semibold">
             Dashboard
           </Link>
           {!session ? (
             <>
-              <Link href="/login" className="hover:text-gray-400">
+              <Link href="/login" className="hover:text-white-400 font-semibold">
                 Login
               </Link>
-              <Link href="/register" className="hover:text-gray-400">
+              <Link href="/register" className="hover:text-white-400 font-semibold">
                 Sign Up
               </Link>
             </>
@@ -39,7 +39,7 @@ const Navbar = () => {
             <Button
               onClick={() => signOut()}
               variant="outline"
-              className="text-black border-white hover:bg-white hover:text-black"
+              className="text-black font-semibold"
             >
               Logout
             </Button>
@@ -71,13 +71,10 @@ const Navbar = () => {
                   </Link>
                 </>
               ) : (
-                <Button
-                  onClick={() => signOut()}
-                  variant="outline"
-                  className="text-black border-white hover:bg-white hover:text-black"
-                >
-                  Logout
-                </Button>
+               
+                <Link href="/" className="font-semibold" onClick={() => signOut()}>
+                    Logout
+                </Link>
               )}
             </nav>
           </SheetContent>
