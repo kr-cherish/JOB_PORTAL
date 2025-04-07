@@ -1,8 +1,21 @@
+// app/api/auth/[...nextauth]/route.ts
 import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import prisma from "@/utils/db";
 import { compare } from "bcryptjs";
+interface Session {
+  user: {
+    id: string;
+    email: string;
+    role: string;
+  };
+}
 
+ interface User {
+    id: string;
+    email: string;
+    role: string;
+  }
 export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
@@ -25,10 +38,19 @@ export const authOptions: NextAuthOptions = {
         const isMatch = await compare(credentials.password, user.password);
         if (!isMatch) return null;
 
-        return { id: user.id, email: user.email, role: user.role };
+        return {
+          id: user.id,
+          email: user.email,
+          role: user.role,
+        };
       },
     }),
   ],
+
+  session: {
+    strategy: "jwt",
+  },
+
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
@@ -39,12 +61,13 @@ export const authOptions: NextAuthOptions = {
     },
     async session({ session, token }) {
       if (session.user) {
-        session.user.id = token.id;
-        session.user.role = token.role;
+        session.user.id = token.id as string;   
+        session.user.role = token.role as string;
       }
       return session;
     },
   },
+
   pages: {
     signIn: "/login",
   },

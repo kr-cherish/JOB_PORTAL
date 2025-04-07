@@ -8,32 +8,38 @@ datasource db {
 }
 
 model User {
-  id         String  @id @default(uuid())
+  id         String   @id @default(uuid())
   fname      String
   lname      String
-  email      String  @unique
+  email      String   @unique
   password   String
-  role       Role @default(USER)
+  role       Role     @default(USER)
   resume     String?
   skills     String?
   experience String?
   bio        String?
 
+  company   Company? @relation("UserCompany")
+  
+
   applications AppliedJob[] @relation(name: "UserApplications")
 }
 
 model Company {
-  id               String  @id @default(uuid())
-  name             String
-  description      String
-  logo            String?
-  website         String?  // Company website link
-  employeeSize    String?  // Number of employees
-  foundedYear     String?     // Year company was founded
-  specialities    String?  // Company's specialities (comma-separated values)
-  overview        String?  // Overview of the company
+  id             String   @id @default(uuid())
+  name           String
+  description    String
+  logo           String?
+  website        String?
+  employeeSize   String?
+  foundedYear    String?
+  specialities   String?
+  overview       String?
 
-  jobs            Job[]
+  userId String @unique
+  user   User   @relation("UserCompany", fields: [userId], references: [id])
+  
+  jobs           Job[]
 }
 
 model Job {
@@ -43,10 +49,10 @@ model Job {
   companyId   String
   company     Company      @relation(fields: [companyId], references: [id])
   createdBy   String       // ID of the admin who posted the job
-  salary      String?      // Salary range (optional)
-  location    String?      // Job location (optional)
-  skills      String?      // Required skills for the job
-  experience  String?      // Required experience level
+  salary      String?      
+  location    String?      
+  skills      String?      
+  experience  String?      
   applicants  AppliedJob[] @relation("JobApplications")
 }
 

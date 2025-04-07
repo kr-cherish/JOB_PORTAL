@@ -8,10 +8,13 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import uploadImagetoPinata  from "@/utils/uploadPinata"
 
+
+
 const RegisterPage = () => {
   const [error, setError] = useState("");
-  const [role, setRole] = useState<"USER" | "ADMIN">("USER");
-  const [userData, setUserData] = useState<{ fname: string, lname: string, email: string, password: string, role: "USER" | "ADMIN", resume: string, skills: string, bio: string, experience: number } | undefined>({
+
+ 
+  const [userData, setUserData] = useState<{ fname: string, lname: string, email: string, password: string, role: "USER" | "ADMIN "| string , resume: string, skills: string, bio: string, experience: number } | undefined>({
     fname: "",
     lname: "",
     email: "",
@@ -70,22 +73,33 @@ const RegisterPage = () => {
     <Card className="w-full shadow-none bg-[#F6F8D5] border-none">
       <CardHeader>
         <CardTitle className="text-center">
-          {role === "USER" ? "User Registration" : "Admin Registration"}
+          {userData?.role === "USER" ? "User Registration" : "Admin Registration"}
         </CardTitle>
       </CardHeader>
       <CardContent>
         <div className="flex gap-3 justify-between mb-4">
           <Button
-            onClick={() => setRole("USER")}
+          onClick={() =>
+            setUserData((user) => ({
+              ...user,
+              role: "USER"
+            }))
+          }
             className="w-[50%]"
-            variant={role === "USER" ? "default" : "outline"}
+            variant={userData?.role === "USER" ? "default" : "outline"}
           >
             User
           </Button>
           <Button
             className="w-[50%]"
-            onClick={() => setRole("ADMIN")}
-            variant={role === "ADMIN" ? "default" : "outline"}
+            onClick={() =>
+              setUserData((user) => ({
+                ...user,
+                role: "ADMIN"
+              }))
+            }
+
+            variant={userData?.role === "ADMIN" ? "default" : "outline"}
           >
             Admin
           </Button>
@@ -108,7 +122,7 @@ const RegisterPage = () => {
             <Input name="password" type="password" required onChange={(e) => setUserData((user: any) => ({ ...user, password: e.target.value }))} />
           </div>
 
-          {role === "USER" && (
+          {userData?.role === "USER" && (
             <>
               <div>
                 <Label>Upload Resume</Label>
@@ -139,7 +153,7 @@ const RegisterPage = () => {
           )}
 
           <Button type="submit" className="w-full">
-            Sign up as {role === "USER" ? "User" : "Admin"}
+            Sign up as {userData?.role === "USER" ? "User" : "Admin"}
           </Button>
           {error && <p className="text-red-600 text-center mt-4">{error}</p>}
         </form>

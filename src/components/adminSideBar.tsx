@@ -12,10 +12,9 @@ const Sidebar = () => {
   const [open, setOpen] = useState(false);
 
   const navItems = [
-    { name: "Compnay Info", href: "/adminCompany", icon: <Component  className="w-5 h-5" /> },
+    { name: "Compnay Profile", href: "/adminCompany", icon: <Component  className="w-5 h-5" /> },
     { name: "Post Jobs", href: "/postjobs", icon: <Home className="w-5 h-5" /> },
     { name: "All Jobs", href: "/allJobs", icon: <Briefcase className="w-5 h-5" /> },
-    { name: "Profile", href: "/profile", icon: <User className="w-5 h-5" /> },
   ];
 
   return (
@@ -52,7 +51,7 @@ const Sidebar = () => {
       </div>
 
       {/* Desktop Sidebar */}
-      <aside className="max-w-lg hidden h-full md:flex flex-col w-64 p-4 border-r bg-[#4F959D]">
+      <aside className="max-w-lg hidden md:flex flex-col w-64 p-4 border-r bg-[#4F959D]">
         <nav className="space-y-4">
           {navItems.map((item) => (
             <Link key={item.href} href={item.href}>

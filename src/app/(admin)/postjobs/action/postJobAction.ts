@@ -1,38 +1,53 @@
 "use server";
+import { prisma } from "@/utils/db";
+interface JobForm {
+  title: string;
+  description: string;
+  salary: string;
+  location: string;
+  skills: string;
+  experience: string;
+}
 
-import prisma from "@/utils/db";
-
-export async function postJob(formData: FormData) {
+export async function postJobAction(formData: JobForm,session:any) {
+  console.log("🚀 ~ postJobAction ~ session:", session)
   try {
-    const title = formData.get("title") as string;
-    const description = formData.get("description") as string;
-    const companyId = formData.get("companyId") as string;
-    const createdBy = formData.get("createdBy") as string;
-    const salary = formData.get("salary") as string;
-    const location = formData.get("location") as string;
-    const skills = formData.get("skills") as string;
-    const experience = formData.get("experience") as string;
+    
+    if (!session || !session.user?.email) {
+      throw new Error("Unauthorized");
+    }
 
-    if (!title || !description || !companyId || !createdBy) {
-      return { error: "All required fields must be filled." };
-    } 
+    const user = await prisma.user.findUnique({
+      where: { email: session.user.email },
+    });
+
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    const company = await prisma.company.findUnique({
+      where: { userId: user.id },
+    });
+
+    if (!company) {
+      throw new Error("Please add a company profile before posting a job.");
+    }
 
     await prisma.job.create({
       data: {
-        title,
-        description,
-        companyId,
-        createdBy,
-        salary,
-        location,
-        skills,
-        experience,
+        title: formData.title,
+        description: formData.description,
+        salary: formData.salary,
+        location: formData.location,
+        skills: formData.skills,
+        experience: formData.experience,
+        companyId: company.id,
+        createdBy: user.id,
       },
     });
 
-    return { success: "Job posted successfully!" };
-  } catch (error) {
-    console.error("Error posting job:", error);
-    return { error: "Something went wrong. Please try again." };
+    return { success: true };
+  } catch (error: any) {
+    return { success: false, message: error.message || "Failed to post job" };
   }
 }
