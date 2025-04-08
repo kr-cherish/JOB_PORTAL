@@ -1,23 +1,23 @@
 "use client";
 
-import Sidebar from "@/components/SideBar";
+import Sidebar from "@/components/SideBar"; // You can use a different sidebar if needed
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-const AdminLayout = ({ children }: { children: React.ReactNode }) => {
+const UserLayout = ({ children }: { children: React.ReactNode }) => {
   const { data: session, status } = useSession();
   const router = useRouter();
 
   useEffect(() => {
-    if (status !== "loading" && (!session || session.user.role !== "ADMIN")) {
-      router.push("/dashboard"); 
+    if (status !== "loading" && (!session || session.user.role !== "USER")) {
+      router.push("/dashboard"); // Redirect admins or unauthenticated users
     }
   }, [session, status, router]);
 
   if (status === "loading") return <p>Loading...</p>;
 
-  if (!session || session.user.role !== "ADMIN") {
+  if (!session || session.user.role !== "USER") {
     return <p>Redirecting...</p>;
   }
 
@@ -29,4 +29,4 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export default AdminLayout;
+export default UserLayout;

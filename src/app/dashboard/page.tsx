@@ -1,6 +1,6 @@
 "use client";
 
-import  Sidebar  from "@/components/adminSideBar";
+import  Sidebar  from "@/components/SideBar";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 const Dashboard = () => {
@@ -18,11 +18,7 @@ const Dashboard = () => {
 
   return (
     <div>
-      {session.user.role === "ADMIN" ? (
         <Sidebar/>
-      ) : (
-        <p>You are a Normal User</p>
-      )}
     </div>
   );
 };

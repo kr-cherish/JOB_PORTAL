@@ -12,7 +12,7 @@ export const getMyCompany = async (session) => {
   const company = await prisma.company.findFirst({
     where: {
       userId, 
-    },
+    }
   });
   console.log("🚀 ~ getMyCompany ~ company:", company)
 

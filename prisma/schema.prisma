@@ -62,7 +62,7 @@ model AppliedJob {
   user      User     @relation(fields: [userId], references: [id], name: "UserApplications")
   jobId     String
   job       Job      @relation(fields: [jobId], references: [id], name: "JobApplications")
-  resume    String?
+  // resume    String?
   appliedAt DateTime @default(now())
 
   @@unique([userId, jobId])
