@@ -1,6 +1,6 @@
 import JobListClient from "@/components/user/allJobsUser";
 import { getAllJobs } from "./action/allJobsAction";
-import { getAppliedJobIds, applyToJob } from "./action/applyJobAction";
+import { getAppliedJobIds } from "./action/applyJobAction";
 
 export default async function AllJobsUserPage() {
   const jobs = await getAllJobs();

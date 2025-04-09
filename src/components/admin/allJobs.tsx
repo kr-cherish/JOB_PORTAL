@@ -1,6 +1,7 @@
-// app/(admin)/allJobs/JobList.tsx
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import Link from "next/link";
+import { Button } from "../ui/button";
 
 interface Job {
   id: string;
@@ -40,6 +41,9 @@ export default function JobList({ jobs }: { jobs: Job[] }) {
               <strong>Salary:</strong> {job.salary}
             </div>
           </CardContent>
+          <Button>
+            <Link href={`allJobs/${job.id}`}>View Application</Link>
+          </Button>
         </Card>
       ))}
     </div>

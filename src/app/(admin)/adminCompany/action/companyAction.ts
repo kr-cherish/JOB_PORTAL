@@ -1,7 +1,7 @@
 "use server";
 
 import prisma from "@/utils/db";
-import { FORMDATA } from "@/components/adminCompnay";
+import { FORMDATA } from "@/components/admin/adminCompnay";
 
 export const createCompany = async (formData: FORMDATA, session: any) => {
   const userId = session?.user?.id;

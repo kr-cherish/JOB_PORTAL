@@ -3,7 +3,7 @@
 import { auth } from "@/utils/auth";
 import prisma from "@/utils/db";
 
-export const getMyCompany = async (session) => {
+export const getMyCompany = async (session:any) => {
  
   const userId = session?.user?.id;
   if (!session?.user?.email) return null;

@@ -21,7 +21,6 @@ model User {
 
   company   Company? @relation("UserCompany")
   
-
   applications AppliedJob[] @relation(name: "UserApplications")
 }
 
@@ -38,7 +37,6 @@ model Company {
 
   userId String @unique
   user   User   @relation("UserCompany", fields: [userId], references: [id])
-  
   jobs           Job[]
 }
 
@@ -62,9 +60,8 @@ model AppliedJob {
   user      User     @relation(fields: [userId], references: [id], name: "UserApplications")
   jobId     String
   job       Job      @relation(fields: [jobId], references: [id], name: "JobApplications")
-  // resume    String?
+  
   appliedAt DateTime @default(now())
-
   @@unique([userId, jobId])
 }
 

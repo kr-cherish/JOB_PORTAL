@@ -22,6 +22,7 @@ const Sidebar = () => {
   ];
 
   const userNav = [
+    { name: "User Profile", href: "/userProfile", icon: <Briefcase className="w-5 h-5" /> },
     { name: "All Jobs", href: "/allJobsUser", icon: <Briefcase className="w-5 h-5" /> },
     { name: "Applications", href: "/jobApplication", icon: <BookOpen className="w-5 h-5" /> },
   ];
@@ -31,7 +32,7 @@ const Sidebar = () => {
   return (
     <>
       {/* Mobile Sidebar */}
-      <div className="md:hidden p-4">
+      <div className="md:hidden p-4 ">
         <Sheet open={open} onOpenChange={setOpen}>
           <SheetTrigger asChild>
             <Button variant="outline" size="icon">

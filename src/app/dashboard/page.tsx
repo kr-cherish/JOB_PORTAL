@@ -17,7 +17,7 @@ const Dashboard = () => {
   }
 
   return (
-    <div>
+    <div className="flex h-full">
         <Sidebar/>
     </div>
   );
