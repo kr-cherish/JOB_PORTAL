@@ -13,7 +13,7 @@ const Navbar = () => {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="w-full  bg-[#205781] text-black p-6 shadow-md">
+    <header className="w-full  bg-[#205781] text-black p-6 shadow-md h-[80px]">
       <div className="container mx-auto flex justify-between items-center">
         <Link href="/" className="text-2xl font-bold">
           Job Portal

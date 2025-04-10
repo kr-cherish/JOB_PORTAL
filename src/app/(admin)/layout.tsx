@@ -22,9 +22,9 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
   }
 
   return (
-    <div className="flex  h-screen">
+    <div className="flex h-full">
       <Sidebar />
-      <main className="flex-1 p-4">{children}</main>
+      <main className="flex-1 p-4 overflow-y-auto h-[calc(100vh-80px)] ">{children}</main>
     </div>
   );
 };

@@ -19,7 +19,7 @@ interface Job {
 
 export default function JobList({ jobs }: { jobs: Job[] }) {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4 overflow-y-auto">
       {jobs.map((job) => (
         <Card key={job.id} className="shadow-md bg-[#F2EFE7] border rounded-xl hover:shadow-lg transition">
           <CardHeader>
