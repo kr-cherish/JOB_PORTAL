@@ -1,11 +1,19 @@
 import { getJobsWithApplicants } from "../../adminApplication/action/ApplyerUserAction";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { updateApplicationStatus } from "../action/pdateApplicationStatusAction";
 
 export default async function Page({ params }: { params: { id: string } }) {
   const jobId = params.id;
   const applicants = await getJobsWithApplicants(jobId);
   console.log("🚀 ~ Page ~ applicants:", applicants)
+
+  async function handleStatus(formData: FormData) {
+    "use server";
+    const applicationId = formData.get("applicationId") as string;
+    const status = formData.get("status") as "ACCEPTED" | "REJECTED";
+    await updateApplicationStatus(applicationId, status);
+  }
 
   return (
     <div className="p-6">
@@ -24,13 +32,28 @@ export default async function Page({ params }: { params: { id: string } }) {
               <p><strong>Bio:</strong> {applicant.user.bio}</p>
               <p><strong>Applied At:</strong> {new Date(applicant.appliedAt).toLocaleString()}</p>
             
-            <div className="flex items-end-safe">
-              <Button asChild variant="outline">
-                <a href={applicant.user.resume || "#"} target="_blank">
-                  View Resume
-                </a>
-              </Button>
+              <div className="flex gap-2">
+                {applicant.status === "PENDING" && (
+                  <>
+                    <form action={handleStatus}>
+                      <input type="hidden" name="applicationId" value={applicant.id} />
+                      <input type="hidden" name="status" value="ACCEPTED" />
+                      <Button type="submit" variant="outline">Accept</Button>
+                    </form>
+
+                    <form action={handleStatus}>
+                      <input type="hidden" name="applicationId" value={applicant.id} />
+                      <input type="hidden" name="status" value="REJECTED" />
+                      <Button type="submit" variant="destructive">Reject</Button>
+                    </form>
+                  </>
+                )}
+
+                <Button asChild variant="secondary">
+                  <a href={applicant.user.resume || "#"} target="_blank">View Resume</a>
+                </Button>
               </div>
+
             </CardContent>
           </Card>
         ))}

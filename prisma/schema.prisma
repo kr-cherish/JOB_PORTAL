@@ -60,7 +60,7 @@ model AppliedJob {
   user      User     @relation(fields: [userId], references: [id], name: "UserApplications")
   jobId     String
   job       Job      @relation(fields: [jobId], references: [id], name: "JobApplications")
-  
+   status    ApplicationStatus @default(PENDING) 
   appliedAt DateTime @default(now())
   @@unique([userId, jobId])
 }
@@ -68,4 +68,10 @@ model AppliedJob {
 enum Role {
   USER
   ADMIN
+}
+
+enum ApplicationStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
 }

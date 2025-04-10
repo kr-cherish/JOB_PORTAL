@@ -41,6 +41,23 @@ export default async function MyApplicationsPage() {
                     Applied
                   </Badge>
                 </div>
+                <div className="pt-4">
+                  {job.status === "PENDING" && (
+                    <Badge className="bg-yellow-500 text-white px-3 py-1 rounded-full">
+                      Pending
+                    </Badge>
+                  )}
+                  {job.status === "ACCEPTED" && (
+                    <Badge className="bg-green-600 text-white px-3 py-1 rounded-full">
+                      Accepted
+                    </Badge>
+                  )}
+                  {job.status === "REJECTED" && (
+                    <Badge className="bg-red-500 text-white px-3 py-1 rounded-full">
+                      Rejected
+                    </Badge>
+                  )}
+                </div>
               </CardContent>
             </Card>
           ))}

@@ -33,6 +33,7 @@ export const getMyAppliedJobs = async () => {
     experience: item.job.experience,
     salary: item.job.salary,
     location: item.job.location,
+    status : item.status,
     company: {
       name: item.job.company?.name || "Unknown Company",
     },
