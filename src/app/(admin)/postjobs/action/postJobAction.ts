@@ -10,7 +10,7 @@ interface JobForm {
 }
 
 export async function postJobAction(formData: JobForm,session:any) {
-  console.log("🚀 ~ postJobAction ~ session:", session)
+  // console.log("🚀 ~ postJobAction ~ session:", session)
   try {
     
     if (!session || !session.user?.email) {

@@ -14,7 +14,6 @@ export const applyToJob = async (jobId: string) => {
 
   if (!user) return { success: false, message: "User not found" };
 
-  // Prevent double application
   const alreadyApplied = await prisma.appliedJob.findFirst({
     where: {
       userId: user.id,

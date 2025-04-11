@@ -54,7 +54,6 @@ const AdminCompanyForm = () => {
         console.error("Error fetching company:", error);
       }
     };
-
     fetchCompany();
   }, []);
 
@@ -157,9 +156,6 @@ const AdminCompanyForm = () => {
           // ✅ Company creation form if no existing company
           <form onSubmit={handleSubmit} className="w-full max-w-3xl mx-auto bg-white p-6 rounded-xl shadow-md space-y-6">
             <h2 className="text-2xl font-semibold text-gray-800">Add Company Information</h2>
-
-            {/* Your form fields go here (as you already have in `formData` state) */}
-            {/* ... All your <Input>, <Textarea>, and <Label> components ... */}
 
             <div className="mb-2 flex justify-end">
               <Button type="submit" disabled={loading || !isFormValid}>
