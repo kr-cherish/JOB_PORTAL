@@ -4,7 +4,8 @@ import { applyToJob } from "@/app/(user)/allJobsUser/action/applyJobAction";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { searchJobsByTitle } from "@/app/(user)/allJobsUser/action/searchAction";
 
 type Job = {
   id: string;
@@ -28,6 +29,15 @@ export default function JobListClient({
 }) {
   const [appliedJobs, setAppliedJobs] = useState<string[]>(appliedJobIds);
 
+  const [search, setSearch] = useState('');
+  const [results, setResults] = useState<any[]>([]);
+
+  const handleSearch = async () => {
+    const jobs = await searchJobsByTitle(search);
+    setResults(jobs);
+  };
+
+
   const handleClick = async (jobId: string) => {
     const res = await applyToJob(jobId);
     if (res?.success) {
@@ -39,6 +49,44 @@ export default function JobListClient({
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
+      
+      <div className="max-w-3xl mx-auto p-6">
+      <h1 className="text-2xl font-bold mb-4"> Search Jobs</h1>
+
+      <div className="flex gap-2 mb-6">
+        <input
+          type="text"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          placeholder="Enter job title..."
+          className="border px-3 py-2 rounded w-full"
+        />
+        <button
+          onClick={handleSearch}
+          className="bg-blue-600 text-white px-4 py-2 rounded"
+        >
+          Search
+        </button>
+      </div>
+
+      {results.length > 0 ? (
+        <ul className="space-y-4">
+          {results.map((job) => (
+            <li key={job.id} className="p-4 border rounded">
+              <h2 className="font-semibold">{job.title}</h2>
+              <p className="text-gray-600">{job.description}</p>
+              <p className="text-sm text-gray-500 mt-1">
+                Company: {job.company?.name}
+              </p>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p className="text-gray-500">No jobs found.</p>
+      )}
+    </div>
+
+
       {jobs.map((job) => {
         const isApplied = appliedJobs.includes(job.id);
         return (
